@@ -1,0 +1,37 @@
+\chapter{Related Work}
+\label{cha:related_work}
+
+Path planning is a fundamental problem, so it is unsurprising there are already many possible solutions. Several well-known algorithms have been used to tackle this problem or combined in order to achieve better results. However, it is also a very complex problem and has been shown to be at least NP-complete and PSPACE-hard, with it's complexity growing exponentially with the configuration space, in our case the number of trailers. \cite{1} In the following chapter we will take a closer look at some of the solutions proposed and also consider their complexity and their problems with this particular task. This chapter is split in two parts, the first one concentrating on incremental algorithms and probabilistic metaheuristics, the second one instead focusing on other machine learning approaches. The focus in either case is the usefulness of the algorithm as a path-planning solution for a general-n-trailer. \pagebreak[4]
+
+\section{Alternative Algorithms for Path-Planning}
+\label{sec:alternative_pathplanning}
+
+In order to plan a path using incremental algorithms we first have to convert our path planning into a graph searching problem. To this end we have to construct a suitable graph from a given configuration space, which in turn was constructed by representing any possible configuration, that is direction and position of all elements of the vehicle, as a single point in this C-space. There are several approaches to this task, for example the visibility graph approach \cite{2,3} and the retraction method \cite{4,5}, but for the purpose of this paper it is enough to know that such a conversion into a graph searching problem is possible. 
+
+\subsection{A* Algorithm}
+\label{sec:a_star}
+
+The A* algorithm is one of the most widespread solutions for graph traversal problems.\cite{8} In order to utilize it for motion planning the area has to be overlayed with a configuration space and then transformed into a graph as described above. This leads to several problems for our path planning task. The complexity of the problem depends on the size of the graph, which in turn depends on the size of the configuration space. Two factors determine this size: The number of degrees of freedom our system has, in this case the number of trailers, as well as the magnitude of our grid, which depends on both the size of our map and the resolution of the overlayed grid. A finer grid leads to a larger number of vertics in the graph and, as the computation time of the A* algorithm grows exponentially with this number, results in slower performance. However, a coarse grid woud ignore possible paths since obstacles would appear greater than they are. To a certain point this can be useful to prevent collisions, but it also means a loss of information and consequently fewer options to choose from, possibly missing better paths. There may also be additionl constraints the path has to satisfy, which further slow down computation. So while A*, or similar graph searching algorithms, like Dijkstra's grapgh search \cite{6}, can be used, their performance for this kind of complex problem prevents them from being feasable.
+
+\subsection{Hill Climbing}
+\label{sec:hill_climbing}
+
+Another common algorithm used to tackle graph searching problems is Hill Climbing. It is popular due to it's simplicity and ability to find a local optumum in a short amount of time, also it can return a result an any point, even when it is not yet finished. This may be important in real-time system, where it is more important to have a solution now than to have an optimized solution later. This may also hold true for motion planning task, when the speed of planning is more important than the quality of the resulting paths. In our give case however the quality of the path is more important than the speed of computation. In simple cases Hill Climbing produces paths of similar quality when compared to Simulated Annealing or Genetic Algorithms \cite{8}, however as the search space grows more complex the algorithm fails to generate good solutions. This is due to it's very local searching behaviour which becomes more of an obstacle the larger the search space gets. Various optimization techniques try to mitigate this problem, such as Stochastic Hill Climbing, which does not examine all neighbours but chooses randomly and then evaluates whether to move there or to examine another one, or Random-restart Hill Climbing, which tries to counter the locality issue by choosing it's start point at random and then repeat the entire seach several times. Even with these optimizations in place, Hill Climbing still cannot compete with other algorithms in solving problems of the complexity we consider here. Stochastic Hill Climbing produces paths similar to Standard Hill Climbing at equal or even greater cost \cite{8} and also fails to produce good results once the search space becomes too large. Random-restart Hill Climbing could potentially produce good results, but in a large search space this would very much rely on luck. Since the algorithm would have to run many times to give at least some chance that a globally good path has been found the performance would suffer greatly. Also, unlike A*, Hill Climbing can never guarantee that the optimal path has been found, this is also true for our Machine Learning Algorithms however.
+
+\subsection{Simulated Annealing}
+\label{sec:simulated_annealing}
+
+% Iterative Algorithms End
+
+\section{Alternative Machine Learning Algorithms for Path-Planning}
+\label{sec:alternative_machine_learning_pathplanning}
+
+\subsection{Reinforced Learning}
+\label{sec:reinforced_learning}
+
+\subsection{Q-Learning}
+\label{sec:q-learning}
+
+\subsection{Genetic Algorithm}
+\label{sec:genetic_algorithm}
+
