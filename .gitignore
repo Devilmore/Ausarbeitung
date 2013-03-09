@@ -174,5 +174,6 @@ pip-log.txt
 *.out
 *.pdf
 *.run.xml
-*.tox
+*.toc
+*.blg
 *.bib
