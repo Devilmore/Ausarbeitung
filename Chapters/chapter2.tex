@@ -21,6 +21,8 @@ Another common algorithm used to tackle graph searching problems is Hill Climbin
 \subsection{Simulated Annealing}
 \label{sec:simulated_annealing}
 
+Simulated Annealing is a probabilistic metaheuristic which searches for a optimum solution in a way similar to Hill Climbing, that is, by always considering the neighbours of the current position and then using a given function to determin whether or not to move to that neighbour. Unlike Hill Climbing however, Simulated Annealing changes it's behaviour over time, according to a global parameter $T$ (Temperature). $T$ can be defined freely, but always ends with $T=0$. The algorithm favours moves that go towards lower energy states the smaller $T$ is, so it starts out by ignoring local minima and moves loosely towards areas that contain good solutions overall. Then, with lower $T$, it starts prefering moves that go downhill the most so that it starts moving towards the local minima in the given region once $T$ gets close to $0$. Due to this Simulated Annealing circumvents the Hill Climbing problem of solely moving towards local solutions while ignoring the global ones. The algorithm shows results similar to those of a Genetic Algorithm but is significantly outperformed as far as number evaluation is concerned.\cite{8}
+
 % Iterative Algorithms End
 
 \section{Alternative Machine Learning Algorithms for Path-Planning}
