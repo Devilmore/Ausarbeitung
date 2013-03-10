@@ -28,11 +28,45 @@ Simulated Annealing is a probabilistic metaheuristic which searches for a optimu
 \section{Alternative Machine Learning Algorithms for Path-Planning}
 \label{sec:alternative_machine_learning_pathplanning}
 
+As we can see from the algorithms presented in \ref{alternative_pathplanning} an iterative approach causes a number of problems when it comes to complex tasks. Since we want to develop a solution for a general-n-trailer, with theoretically infinite degrees of freedom, an algorithm that stops producing feasible results for non-trivial problems is not an option. Of the three algorithms presented, Simulated Annealing is the only one that produces useful results, but also requires a very large number of computations \cite{8} for more complex problems. In order to avoid these issues a number of machine learning algorithms have been proposed to solve the motion planning problem. In the following section we will consider INSERT NUMBER HERE of these approaches, including a second implementation of the Genetic Algorithm (GA). This  GA is important since the comparison to Hill Climbing and Simulated Annealing refered to earlier have been made using that implementation and not the one developed in this paper. \cite{8}
+
 \subsection{Reinforced Learning}
 \label{sec:reinforced_learning}
 
-\subsection{Q-Learning}
+Reinforced Learning is one category of Machine Learning algorithms with different capabilities depending on the method used. Before focusing further on any of these specific algorithms a general overview of the principles of Reinforced Learning will be given. The general principle of Reinforced Learning is to assign a certain reward to any action. This reward can be positive or negative (punishment) and it's value depends on the action taken. The task of the algorithm is to choose a path through this graph such that the accumulated reward at the end is maximal. Since always choosing the greater reward at any point obvisouly does not mean achieving the greates accumulated reward a balance between eploration and exploitation has to be found. Exploitation means picking the best choice available in the current state and exploration means picking sub optimal choices in the hopes that actions further down this part of the decision tree are overall better. For this an $\epsilon$-greedy algorithm with an $\epsilon$ value of $5\%$ is usually used, where a greater $\epsilon$ value means more exploration and a smaller value infers more exploitation. For path planning tasks a Markov process is usually assumed, which means that only current inputs, in our case the current position of the truck, are used and past ones are ignored. This means that old inputs do not have to be stored, so no memory is required for that, and computation becomes much simpler since fewer variables are considered. Reinforced Learning Algorithms can be split into three groups depending on their model of the environment and their bootstrapping capability. Bootstrapping means that estimates are updates based on other estimates, which speeds the algorithm up. Dynamic Programming methods (DP), Monte Carlo methods (MC) and Temporal Difference methods (TD). MC and TD don't need an exact model of the environment, where MC uses no bootstripping but TD does. DP also uses bootstrapping but needs an exact model of the environment, which makes it less feasable for motion-planning purposes.\cite{9} Specific Reinforced Learning implementations can be categorized according to these three methods. Both TD and MC methods can be split further depending on whether they are on-policy or off-policy, where on-policy is $\epsilon$-greedy and has a certain chance to take a random action rather than then currently best one, while off-policy is not random but suffers from a decreased learning speed as a consequence. In the following we will now have a closer look at INSERT NUMBER HERE such algorithms.
+
+\subsubsection{Q-Learning}
 \label{sec:q-learning}
+
+Q-Learning is an off-policy, $\epsilon$-greedy TD method which learns an action-value function independent from the given policy to make an assumption about the optimal action-value function. Compared to other algorithms it is exploration heavy and will probably make more random decisions than explotive descision, due to this it is also more liekly to find the optimal policy in a finite number of episodes. Q-Learning requries the for actions and states to be defined. In our case states are sensor data, or our current positon, and actions are basic movement actions, here left/right in a certain angle and backwards driving. Since Reinforced Learning takes a large number of samples to learn from the first step should be done in a simulation, similar to the one developed for evaluation of our Genetic Algorithm. Simulations have the downside of being inaccurate since a model can never represent the real world perfectly, but can in turn be used much easier and much more quickly. Also data from a simulation can be stored and evaluated easily and the process can simply be automated. Once an optimal policy has been found using the simulation it has to be further refined using the actual vehicle. Depending on the accuracy of the simulation this will only require a small number of episodes. This phase may still be the most time consuming however since it cannot be sped up like the simulation. Depending on the vehicle and space required for the task, in our case a parking space and a truck, this task will still be the most challenging.
+
+\subsubsection{Extended Q-Learning}
+\label{sec:extended-q-learning}
+Classical Q-Larning needs to make $m-1$ comparisons to maximazie the Q-value in a given state, so assuming n states the overall time-complexity of Q-Learning is $n(m-1)$. This can be optimized by using Extended Q-Leaning \cite{11}. We introduce an additional variable, $L_n$, for each state. $L_x$ is a lock bit and is 1 if the value $Q_x$ of the state $S_x$ is locked and won't be updated further, or 0 otherwise. At the beginning we have $L_n=0$ for all $S_n$ except the goal state. There are a number of properties that can be used to quickly set $L_n$ throughout the algorithm's runtime: 
+
+\vspace{1\baselineskip}\vspace{-\parskip}
+
+\begin{flushleft}
+Property 1: If $L_n=1$ and $d_p_G > d_n_G$ then $Q_p = \gamma \times Q_n$ and set $L_p=1$\\
+Property 2: If $L_n=0$ and $d_p_G > d_n_G$ then $Q_p = Max(Q_p,\gamma \times Q_n)$\\
+Property 3: If $L_n=1$ and $d_n_G > d_p_G$ then $Q_n = \gamma \times Q_p$ and set $L_n=1$\\
+Property 4: If $L_n=0$ and $d_n_G > d_p_G$ then $Q_n = Max(Q_n,\gamma \times Q_p)$\\
+\end{flushleft}
+
+\vspace{1\baselineskip}\vspace{-\parskip}
+
+Using these properties both $L_i$ and $Q_i$ can be updated accordingly. Now, in order to determine if a state is optimal, we only need to check whether or not it is locked. So for $n$ states we only need $n$ comparisons, so we save $n(m-1)-n=nm-2n=n(m-2)$ \cite{11} comparisons.
+For space complexity we previously had $n \times m $ for classical Q-Learning whereas we only need $3$ values for any state in the Extended Q-Learning Algorithm: Q-Value, $L_x$ and the best action at that state. This means a space-complexity of only $3 \times n$ and a saving of $nm-3n=n(m-3)$.\cite{11}
+
+
+\subsubsection{R-Learning}
+\label{sec:r-learning}
+
+\subsubsection{Sarsa}
+\label{sec:sarsa}
+
+\subsubsection{Actor-critic}
+\label{sec:actor-critic}
 
 \subsection{Genetic Algorithm}
 \label{sec:genetic_algorithm}
