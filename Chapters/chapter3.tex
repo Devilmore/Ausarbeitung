@@ -1,12 +1,68 @@
 \chapter{Previous Knowledge}
 \label{cha:previous_knowledge}
 
+Before explaining the devloped path planner various given basics have to be covered. In the following chapter Genetic Algorithms and their various parts will explained in-depth, for implementations and details about which of these possible functions have been chosen for the developed software, see \ref{cha:algorithm_details}. The second part will explain the vehicle and it's limitations assumed for in the simulations as well as the representation used, based on \cite{12}. Afterwards the Simulation Software developed by the AG Echtzeitsysteme is introduced, part of this software is used in the program developed for this paper and will be explained in detail.
 
-
-\section{Previous Knowledge about Genetic Algorithms} % (fold)
+\section{About Genetic Algorithms}
 \label{sec:previous_knowledge_ga}
 
+A Genetic Algorithm (GA) is a search heuristic based on the "`survival of the fittest"' idea of Evolutionary Theory. It was developed by Holland in the 1970s \cite{15} and has since then proven itself in solving complex search problems. The idea is that the best possible solutions of an initial (usually randomly obtained) generation survive into the next generation, similar to natural selection where the strong individuals survive and get a higher chance of passing on their genes while weaker ones die out. This process is then repeated until an optimal solution is obtained. Any given GA consists of almost the same steps, however depending on which functions are implemented for these steps, and a number of general parameters, the resuls can drastically vary. This makes it easy to apply the GA to a large number of problems since the basic setup is always the same and it is easy to exchange only part of the algorithm for another one to try and get the best results. In the following the various steps of the GA are explained and several possible algorithms are given. Chapter \ref{cha:algorithm_details} explains which of these were used and why they were chosen over the other possibilities. Below is a pseudocode for a smaple GA.
+\begin{verbatim}
+  void function GA
+    SET genCount to 0;
+    initialization pop(genCount);
+    evaluation pop(genCount);
+    WHILE (genCount NOT EQUAL maxGenCount) do
+      INCREMENT genCount;
+      selection pop(genCount) from pop(genCount-1):
+      crossover pop(genCount);
+      mutation pop(genCount);
+      evluation pop(genCount);
+    ENDWHILE
+\end{verbatim}
+
+\subsection{Initialization}
+\label{sec:initialization}
+
+In order for the GA to do anything it first needs an initial generation which has to be obtained elsewhere. Unlike the following generations the initial population is usually generated randomly, but it may also be obtained from some previous computation done by another algorithm. Using a different algorithm to do preliminary computation, without letting it run so long that it would find an optimum solution, and then using the GA to optimize the solution can significantly outperform either of the two algorithms looking for an optimal solution in it's own. It can however also lead to a situation where the GA has no chance of finding the optimal solution and only finds a local otipimum since the initial generation it was given did not contain enough members of the best part of the graph.
+How a random population can be obtained heavly depends on the representation of the given problem within the GA, the genome. The choice of genome is one of the most important when developing a GA and also one of the hardest since there are countless possible ways to encode a problem and no real way to tell how effective a representation may be without actually implementing it. In most cases a bit string representation is chosen where any bit represents a certain possible choice within the searchspace, for example whethere a certain vertex is part of the solution or not. For certain tasks other representations may be better but in most cases binary encoding is sufficient and makes the implementations of the other functions easier.
+
+\subsection{Evaluation}
+\label{sec:evaluation}
+
+The second step in the algorithm is the evaluation, which, like the representation of the genome, is a function that is not standarized and is, as such, hard to choose and a big factor for the performance of the GA. The evaluation function assigns a fitness rating to every genome of the given population. Every genome describes a, not necessarily possible, solution to the given problem and fitness rating describes how good a solution that is. The rating is higher for good solutions and lower bad ones, the exact scaling is not standarized and has to be adjusted to the given problem. For example, in some cases it might be best to remove impossible solutions from the population, in others it may be better to keep since they could still contain valuable parts for another solution. The scaling also depends on whether there is a way to know an optimal solution, in which case there would have to be a maximum fitness rating to assign to such a solution, in other cases no maximum may be known.
+The evaluation function depends on the problem to be solved and will usually require representations of the genome other than it's binary form. Functions to obtain one representaion from the other have to be implemented and some way to describe the usefulness of a solution has to be found.
+Once evaluation function is through, every genome in the currrent population should have a rating assigned to it, the consequences of this rating are defined by the other function, mainly the selection.
+
+\subsection{Selection}
+\label{sec:selection}
 
 
-\section{Previous Knowledge about the Vehicle} % (fold)
+
+\subsection{Crossover}
+\label{sec:crossover}
+
+
+
+\subsection{Mutation}
+\label{sec:mutation}
+
+
+
+\subsection{Reordering}
+\label{sec:reordering}
+
+
+
+\subsection{Parameters}
+\label{sec:parameters}
+
+
+
+\section{About the Vehicle}
 \label{sec:previous_knowledge_vehicle}
+
+
+
+\section{About the Simulation Software}
+\label{sec:previous_knowledge_ezsystems}
