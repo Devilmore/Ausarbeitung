@@ -62,6 +62,59 @@ Once all the parts of the GA have been decided on there are only a number of par
 \section{About the Vehicle}
 \label{sec:previous_knowledge_vehicle}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.75\textwidth]{./Chapters/Figures/single-track-model.png}
+\caption{A vehicle in the single track model with identifiers\label{pic:single-track-model}}
+\end{figure}
+
+
+Our simulation software uses the control method for stable driving developed by Christian Schwarz to determine the actual path from the planned one in order to evaluate it's fitness. To this end we use the same representation of the vehicle, which will be explained in the following section. The actual control software is then briefly described in \ref{sec:previous_knowledge_ezsystems}, for a complete definition and prove of stability see \cite{12}. This section also contains a short overview of nonholonomic systems, of which our vehicle is an example.
+The dimensions and number of trailers of the vehicle can be freely defined in the simulation software and since no connection to an actual model is implemented yet no further restrictions are given. The control method itself has been tested in simulation as well as on a 1:16 general-2-trailer model. In order to describe the vehicle more easily and still have enough to detail to achieve a correct representation the single track vehicle model is used.\cite{27} The vehicle is first split along it's flexible coupling, so any axes with a rigid coupling are replaced by one virtual axis between them. The steering of the vehicle is considered to be a flexible coupling, so the tractive unit is considered to be 2 elements, which is why we call it a general-(n-1)-trailer if the model has n elements. Now that the vehicle is a chain of rigid parts, all pairs of wheels are replaces by points, meaing they are considered to touch the ground in exactly one spot, and then all pairs of wheels are replaced by a single wheel in between them. \ref{pic:single-track-model} shows a general-n-trailer in it's single-track model with identifiers, which are used as followed:
+
+\begin{itemize}
+	\item $(x_i,y_i)$ identify the position of a vehicle part by the center of it's axis
+	\item $\theta_i$ identifies the orientation of the element
+	\item $L_i$ identifies the distance from the axis to the front of the vehicle part, the front coupling point
+	\item $M_i$ identifies the distance from the axis to the back of the vehicle part, the rear coupling point
+\end{itemize}
+
+The representation of the entire vehicle can be shortened by giving the positions and angles of all but the first element in relative terms. Accroding to \cite{28} the following rules hold:
+\begin{itemize}
+	\item $x_{i+1}=x_i-L_{i+1} cos \theta_{i+1}-M_i cos \theta_i$
+	\item $y_{i+1}=y_i-L_{i+1} sin \theta_{i+1}-M_i sin \theta_i$
+	\item $\alpha_{L_1}:=\theta_0-\theta_1$ is the angle of steering lock of the vehicle
+	\item $\Delta \theta_{i(i+1)}:= \theta_{i+1}-\theta_i$ is the $i$-th angle of the vehicle
+\end{itemize}
+
+This leads to the complete representation of the vehicle's configuration:
+\begin{center}
+$\vec{g}=$
+$\left(
+	\begin{array}{c}
+		x_1\\
+		y_1\\
+		\theta_1\\
+		\Delta \theta_{12}\\
+		\vdots\\
+		\Delta \thta_{i(i+1)}\\
+		\vdots\\
+		\theta_{(n-2)(n-1)}\\
+		\alpha_{L_1} 
+	\end{array}
+\right)$
+\end{center}
+
+In our program we will be using a similar representation of the vehicle, however we will give the absolute position of all elements since we need them at several points throughout drawing/computation and the effort of calculating them every time considerably outweights the cost of just saving them directly. The formulas above will be used to calculate the vehicle in the first place however.
+
+%Possible paragraph about movemenet description
+
+\subsection{Nonholonomic systems}
+\label{sec:nonholonomic_systems}
+
+Nonholonomic systems are a special form of kinematic systems where the degrees of freedom available are greater than the number of degrees the object can move in, which means the object cannot move along all paths that would theoretically be possible. To be more precise, this means that if a configuration space has $m$ dimensions and the vehicle has $k$ constraints such that $0<k<m$, the system is nonholonomic. It can also be defined as a system with kinematic differential constraints that are nonintegrable and cannot all be expressed as a holonomic constraint of the form $f(q,t)=0$.\cite{29,30}. A car is already a nonholonomic system as it cannot move in every direction of the plane since only one of the 2 axles are controlable and even that is limited. Our general-n-trailer has even more constraints and limitations as to how it can move in the same space and is thus also a nonholonomic system. Path-planning for such a system is more complicated due to these constraints and have to consider additional constraints, called the Pfaffian constraint, to get a proper solution. 
+% Refer to possible related works here
+In our case however we plan paths (more or less) at random and use the control method for stable driving to obtain a possible path from the generated one and thus make sure all constraints are fulfilled. Consequently we do not have to explicitly consider the pfaffian constraints or bring our configuration in Goursat Normal Form, which is used to solve equations on nonholonomic systems.
 
 
 \section{About the Simulation Software}
