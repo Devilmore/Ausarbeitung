@@ -3,10 +3,23 @@
 
 Path planning is a fundamental problem, so it is unsurprising there are already many possible solutions. Several well-known algorithms have been used to tackle this problem or combined in order to achieve better results. However, it is also a very complex problem and has been shown to be at least NP-complete and PSPACE-hard, with it's complexity growing exponentially with the configuration space, in our case the number of trailers. \cite{1} In the following chapter we will take a closer look at some of the solutions proposed and also consider their complexity and their problems with this particular task. This chapter is split in two parts, the first one concentrating on incremental algorithms and probabilistic metaheuristics, the second one instead focusing on other machine learning approaches. The focus in either case is the usefulness of the algorithm as a path-planning solution for a general-n-trailer. \pagebreak[4]
 
-\section{Alternative Algorithms for Path-Planning}
-\label{sec:alternative_pathplanning}
+\section{Common Path-Planning Algorithms}
+\label{sec:common_pathplanning}
 
-In order to plan a path using incremental algorithms we first have to convert our path planning into a graph searching problem. To this end we have to construct a suitable graph from a given configuration space, which in turn was constructed by representing any possible configuration, that is direction and position of all elements of the vehicle, as a single point in this C-space. There are several approaches to this task, for example the visibility graph approach \cite{2,3} and the retraction method \cite{4,5}, but for the purpose of this paper it is enough to know that such a conversion into a graph searching problem is possible. 
+\subsection{Rapidly Exploring Random Tree}
+\label{sec:rrt}
+
+text
+
+\subsection{Path- and Obstacle Tranformation}
+\label{sec:pathtransformation}
+
+text
+
+\section{Algorithms for Graph-Based Path-Planning}
+\label{sec:graphbased_pathplanning}
+
+In order to plan a path using incremental algorithms we first have to convert our path planning into a graph searching problem. To this end we have to construct a suitable graph from a given configuration space (C-space), which in turn was constructed by representing any possible configuration, that is direction and position of all elements of the vehicle, as a single point in this C-space. There are several approaches to this task, for example the visibility graph approach \cite{2,3} and the retraction method \cite{4,5}, but for the purpose of this paper it is enough to know that such a conversion into a graph searching problem is possible. 
 
 \subsection{A* Algorithm}
 \label{sec:a_star}

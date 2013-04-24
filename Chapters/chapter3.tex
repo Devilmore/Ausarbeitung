@@ -24,8 +24,8 @@ A Genetic Algorithm (GA) is a search heuristic based on the "`survival of the fi
 \subsection{Initialization}
 \label{sec:initialization}
 
-In order for the GA to do anything it first needs an initial generation which has to be obtained elsewhere. Unlike the following generations the initial population is usually generated randomly, but it may also be obtained from some previous computation done by another algorithm. Using a different algorithm to do preliminary computation, without letting it run so long that it would find an optimum solution, and then using the GA to optimize the solution can significantly outperform either of the two algorithms looking for an optimal solution in it's own. It can however also lead to a situation where the GA has no chance of finding the optimal solution and only finds a local otipimum since the initial generation it was given did not contain enough members of the best part of the graph.
-How a random population can be obtained heavly depends on the representation of the given problem within the GA, the genome. The choice of genome is one of the most important when developing a GA and also one of the hardest since there are countless possible ways to encode a problem and no real way to tell how effective a representation may be without actually implementing it. In most cases a bit string representation is chosen where any bit represents a certain possible choice within the searchspace, for example whethere a certain vertex is part of the solution or not. For certain tasks other representations may be better but in most cases binary encoding is sufficient and makes the implementations of the other functions easier.
+In order for the GA to do anything it first needs an initial generation which has to be obtained elsewhere. Unlike the following generations the initial population is usually generated randomly, but it may also be obtained from some previous computation done by another algorithm. Using a different algorithm to do preliminary computation, without letting it run so long that it would find an optimum solution, and then using the GA to optimize the solution can significantly outperform either of the two algorithms looking for an optimal solution on its own. It can however also lead to a situation where the GA has no chance of finding the optimal solution and only finds a local otipimum since the initial generation it was given did not contain enough members of the best part of the graph.
+How a random population can be obtained heavily depends on the representation of the given problem within the GA, the genome. The choice of genome is one of the most important when developing a GA and also one of the hardest since there are countless possible ways to encode a problem and no real way to tell how effective a representation may be without actually implementing it. In most cases a bit string representation is chosen where every bit represents a certain possible choice within the searchspace, for example whether a certain vertex is part of the solution or not. For certain tasks other representations may be better, but in most cases binary encoding is sufficient and makes the implementations of the other functions easier.
 
 \subsection{Evaluation}
 \label{sec:evaluation}
@@ -48,11 +48,6 @@ The crossover function chooses two individuals from the population at random and
 \label{sec:mutation}
 
 The mutation operator is simple function that, with a small chance, randomly inverts a single bit of any given genome, regardless of whether this individual has been attained by selection or mutation. The purpose of this inversion is to re-introduce certain possibilities into the population that have died out and can not be gained by crossover anymore since no member of the population has the necessary combination of bits. The mutation rate is usually very low, 0.001, 0.01 or 0.005 are common \cite{20,23,24}.
-
-\subsection{Reordering}
-\label{sec:reordering}
-
-Unlike the operators so far the reordering operator is optinal on not usually part of a GA. It works by randomly chooses an individual with a certain probability, for example 0.1, and then reverses the order of bits between two within this genome, these points are also chosen at random. In certain cases this inversion has been shown to significantly improve the performance of the GA by preventing what is called \textit{deception}\cite{8}. This can happen when certain bits in a genome are important but very far apart, called loose linkage. In such a case the crossover operator is likely to seperate these building blocks even though the need to be together, something that were less likely to happen if the blocks were closer together. Whether the reordering operator is appropriate depends on the given problem and also the crossover operator employed.
 
 \subsection{Parameters}
 \label{sec:parameters}
@@ -258,3 +253,5 @@ This function $f$ is strictly monotonic decreasing on in $\left[- \tfrac{\pi}{2}
 
 \section{About the Simulation Software}
 \label{sec:previous_knowledge_ezsystems}
+
+% Information about EZauto? Is this relevant for this paper?

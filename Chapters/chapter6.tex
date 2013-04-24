@@ -3,6 +3,16 @@
 
 
 
+\section{Genome Representation}
+\label{sec:genome_representation}
+
+
+
+\subsection{Genome Conversion}
+\label{sec:genome_conversion}
+
+
+
 \section{Selection} % (fold)
 \label{sec:selection}
 
@@ -20,3 +30,10 @@
 
 \section{Mutation} % (fold)
 \label{sec:mutation}
+
+
+
+\section{Reordering}
+\label{sec:reordering}
+
+Unlike the operators so far the reordering operator is optinal on not usually part of a GA. It works by randomly chooses an individual with a certain probability, for example 0.1, and then reverses the order of bits between two within this genome, these points are also chosen at random. In certain cases this inversion has been shown to significantly improve the performance of the GA by preventing what is called \textit{deception}\cite{8}. This can happen when certain bits in a genome are important but very far apart, called loose linkage. In such a case the crossover operator is likely to seperate these building blocks even though the need to be together, something that were less likely to happen if the blocks were closer together. Whether the reordering operator is appropriate depends on the given problem and also the crossover operator employed.
