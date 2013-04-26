@@ -1,22 +1,27 @@
 \chapter{Algorithm Details}
 \label{cha:algorithm_details}
 
-
+Since a general overview of Genetic Algorithms has already been given in \ref{sec:previous_knowledge_ga} this chapter will only cover the choices made for the particular program developed for this paper and justify these choices. Note that some alternative algorithms have been considered and sometimes even implemented, see \ref{cha:evaluation}, but due to the time constraints of this thesis not all possibilities could be covered, so in many cases there may be a better solution possible. Some of these will also be considered, but not implemented, in \ref{cha:conclusion}. 
 
 \section{Genome Representation}
 \label{sec:genome_representation}
 
-
+For ease of use a simple path representation with a fixed genome length has been chosen. As detailed in \ref{sec:path_representation} every path consists of exactly 20 parts, each subject to length and/or angle restrictions respectively. Each part is represented by an eight bit string, so the entire path consists of exactly 160 bits. This fixed length makes the application of further operations like crossover and mutation easier and also allows for a simple conversion between the path and genome representation of any given population member. 
+Consequentially every 160 bit genome can be split into 20 8 bit genomeparts, which can be further be assumed to consists of 4 parts: The first bit determines whether this genomepart represents a line or a curve and the next 3 bits determine the length of given pathpart. The last 4 bits are only considered in case of curves, for linear pathparts they are ignored and set to 0. The first 3 of these 4 bits contain the angle of the curve and the last one determines whether this is a right or a left curve. 
+This genome format can also be though of as a graph where, starting from left to right, every bit represents one choice in the graph, the first being curve or line, and the next being the length etc. 
 
 \subsection{Genome Conversion}
 \label{sec:genome_conversion}
 
-
+For every member of the population we require three pieces of information: The path representation, needed for our evaluation, the genome representation, needed for our genetic operations, and the fitness rating. While the assignment of the rating is done by fitness function, see \ref{sec:evaluation}, we also need to be able to convert between the two representations of the path. While a conversion from path to genome representation would certainly be possible, it is not implemented since we never need it. The only part of the algorithm where we do not already have the genome before we need the corresponding path is the initial generation in which we require random paths. Since the paths are random it does not actually matter whether we first generate a genome and then obtain the path or generate a path and obtain the genome from there. We do, however, always need a function that can obtain a path from a given genome since crossover/mutation and reordering will operate on genomes and also return genomes, so since we need that function regardless of what choice we make in the initial generation it is easier to generate the genome first and then obtain the path from there.
+The conversion from genome to pathpart is done simply by following the conventions of the genome, that is, creating a LinePathPart if the first bit is 0 and a CirclePathPart otherwise. The length in either case is 0.5 + length * 0.5, where length is the number represented by the second, third and fourth bit.
+In case of a CirclePathPart we also need the angle, which is 10 + angle * 5, where angle is the number represented by the fifth, sixth and seventh bit. The last bit sets the direction to either right (0) or left (1).
+This conversion is done in blocks of 8 along all 160 bits of the given genome and returns a full LinkedList of 20 pathparts.
 
 \section{Selection} % (fold)
 \label{sec:selection}
 
-
+Three selection methods have been implemented and tested (see \ref{cha:evaluation}) and can be selected from the program, however by default it is set to use the Tournament Selection. The tournament size is set to 2, so 2 members will be selected at random and tested against each other. The selection size is 0.4 by default, so 40\% of the next generation will consist of member of the previous generation (disregarding mutation, which is applied to all members), the remaining 60\% will be obtained later usig crossover between these 40\%. Of the two members chosen the one with the higher rating will win. Since members are chosen at random without being removed from the population it is possible for the same member to be chosen several times. This implementation is not weighted, so all members have the same chance of being chosen, but bad members obviously have a low chance of winning, though it is not impossible so long as they are pitted against an even lower member. This keeps the algorithm from starving since it keeps non-ideal members within the population. The selection process can be adjusted by changing the tournament size, a grater number of participants per tournament lowers the chances of winning for members with a low rating.
 
 \section{Crossover} % (fold)
 \label{sec:crossover}
