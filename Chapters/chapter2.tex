@@ -6,15 +6,28 @@ Path planning is a fundamental problem, so it is unsurprising there are already 
 \section{Common Path-Planning Algorithms}
 \label{sec:common_pathplanning}
 
-\subsection{Rapidly Exploring Random Tree}
+\subsection{Rapidly-exploring Random Tree}
 \label{sec:rrt}
 
-text
+Repidly-exploring Random Trees (RRT) an efficient method for path-planning in high dimensional spaces, including cases such as ours, where nonholonomic constraints are given.\cite{33,34} It works by randomly choosing a configuration (or, if a collision detection is given, a free configuration) from the configuration space C and then looking for a vertex in the tree that is close to the chosen configuration. Then it moves a distance $\detla q$ in direction of that target configuration, taking movement constraints into account. The now reached configration $q_(new)$, which is close to the initially randomly chosen traget configuration, is then added to the RRT and the process is repeated. This algorithm can be started simultaneously from several points of the map, for example the start and target position, and then try to meet the other tree to gain a continuous path through the map. While RRTs can produce paths through complex environments quickly, even while taking different constarints into account, it is not a sufficient path-planning algorithm when used alone. The resulting paths are suboptimal and contain a large number of needles turns and sharp corners. An optimization algorithm is required to flatten the path and make it a more feasible solution. It is however a good way to quickly find a path at all, using a different algorithm for optimization later can still result in an overall better performance than comparable algorithms. 
 
-\subsection{Path- and Obstacle Tranformation}
+\subsection{Path Tranformation}
 \label{sec:pathtransformation}
 
-text
+Path transformation is a simple way to find a path in a grid-based environment (see \ref{sec:a_star}) and combines two other transformation: Distance- and Obstacle Transformation \cite{35}. Distance Transformation works by assigning every cell of the grid a value which represents the distance from this cell to the target cell, see fig. \ref{pic:distance_transformation} for an example. How this distance is computed depends on the chosen movement model, basically whether we choose that our vehicle can move diagonally for the same cost as horizontzally/vertically, a higher cost, or not at all. The later case meaning moving diagonally has twice the cost of horzontally/vertically since it is seen as a combination of two such moves. If a map has been updated with such values a path can easily be found simply by always choosing a cell with a lower value as the next step. The costs of the entire path is also clear from the beginning since it is stated in the first cell. Obstacle transformation works similarly by assigning each cell a value stating the distance between this cell and the closest obstacle as can be seen in fig. \ref{pic:obstacle_transformation}. Path transformation now combines both these maps under a certain weighting which states whether a length or the safety of the path is more important. Avoiding cells with low obstacle value is safer while avoiding cells with high distance value is shorter, so by adjusting this weighting a balance between safety and distance can be found. 
+While path transformation is a simple and often used way to find a path, it is not well suited to high dimensional problems with nonholonomic constraints such as our case here. It's efficiency also heavily depends on the chosen resolution of the map.
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=0.75\textwidth]{./Chapters/Figures/distance_transformation.png}
+\caption{A map filles with distance transformation values\label{pic:distance_transformation}}
+\end{figure}
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=0.75\textwidth]{./Chapters/Figures/obstacle_transformation.png}
+\caption{A map filled with obstacle transformation values\label{pic:obstacle_transformation}}
+\end{figure}
 
 \section{Algorithms for Graph-Based Path-Planning}
 \label{sec:graphbased_pathplanning}
