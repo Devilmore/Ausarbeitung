@@ -38,3 +38,28 @@ The evaluation is done using a simple weighted fitness function which considers 
 
 Further generations are evaluated in the same way as the initial one, but are obviously obtained by genetic crossing and not randomly. The exact process used in this implementation of the genetic algorithm is described in \ref{cha:algorithm_details}.
 
+\section{GUI}
+\label{sec:gui}
+
+The full GUI can be seen in \ref{pic:gui_full_main}. On the left we see a sample map which can be replaced either in the code or by clicking the "`Load Map"' button on the right and providing a fitting image, see \ref{sec:map}. Black areas on the map are obstacles while white areas are available. The blue dot marks our target destination, the red one our starting point. The lines at the red dot are our current vehicle, the tiny red dot within our vehicle is a coupling, in this case a rigid one since we only have a tractive uni by default. On the right of the map we have buttons for loading a new map, starting the pathfinding 0algorithm (Start), stopping the computation (Camcel), drawing a single random path (Start Path) and obtaining a simulation for a given path (Drive). Next to the "`Drive"' button is a small textbox which shows the current generation the algorithm is computing. The current path's genome is shown in the box below those five buttons, every line consists of 8 numbers and represents exactly one pathpart, as such there are 20 lines. This box is usually read-only, but it can be modified by unchecking the "`Genome Rad Only"' box next to it. This way a previously saved path's genome can be put in and a simulation for any given path can be obtained by putting in the genome and then pressing "`Drive"'. The "`Show Current End"' button shows the configration of the vehicle at the end of the current path, this could be used in the fitness function but is not yet implemented. The "`Debug Population"' Checkbox causes the algorithm to stop after each generation and output all computed paths along with their rating. 
+In \ref{pic:gui_vehicle} we can see the vehicle tab of the GUI which allows us to save, load and modiy our general-n-trailer. Each vehicle part is defined by its M and L values, see \ref{sec:previous_knowledge_vehicle}. In the example shown here only the tractive unit, which is generated ranomly every time the program is started, is defined, this is the default setting. More trailers can be added by clicking "`Add Box"', filling in the values and then clicking "`Add Axle"'. "`Save"' and "`Load"' will open a dialogue to save the current vehicle to a text file or loading a suitable file. "`Reset"' removes all trailers and goes back to the vehicle that was generated at the beginning.
+\ref{pic:gui_configuration} shows the configuration tab which allows the modification of the current vehicle's position and steering angles. The slider bar adjusts the current trailers angle relative to it's predecessor, the trailer to be modfied can be chosen in the dropdown menu below. Since the default vehicle only has a tractive unit, which has a rigid coupling, there is only one axle available which defines the starting angle. Just like the vehicle, this configuration can be saved, loaded and reset, it should be noted that it is only possible to load a configuration when it fits the current vehicle's number of trailers. Below the start and end coordinates can bet set, the colours correspond to the points on the map. By selecting "`End Conf"' on the right a target configration can be set, however, this is not needed at the moment since only the distance to the destination is considered in the fitness function, not the entire configuration.
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=0.75\textwidth]{./Chapters/Figures/gui_full_main.png}
+\caption{The full view of the GUI with a sample map on the left and the Main window on the right\label{pic:gui_full_main}}
+\end{figure}
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=0.75\textwidth]{./Chapters/Figures/gui_vehicle.png}
+\caption{The GUIs vehicle Tab\label{pic:gui_vehicle}}
+\end{figure}
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=0.75\textwidth]{./Chapters/Figures/gui_configuration.png}
+\caption{The GUIs configuration Tab\label{pic:gui_configuration}}
+\end{figure}
+
