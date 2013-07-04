@@ -12,6 +12,7 @@ The following table shows the rating achieved (higher is better) as well as the 
 The population size is 1000, the algorithm runs for 50 generations and has a crossover rate of 60\%, a mutation rate of 0.1\% and the algorithm works without reordering operation. It starts at 175,350 and the destination is 740,100 (both are the program's default values). The vehicle has no trailers, an M value of 24,55, an L value of 42,5, and a starting angle of 45°, these values have been randomly generated and were then kept throughout all test runs.
 Computation was done on a Core2Quad 6600@2.4GHz with 4GB of System Memory.
 
+\begin{table}\caption{No Trailer, Generation Count of 50}
 \begin{center}
 	\begin{tabular}{| l | l | l | p{3cm} | p{3cm}|}
 		\hline
@@ -29,6 +30,7 @@ Computation was done on a Core2Quad 6600@2.4GHz with 4GB of System Memory.
 		\hline
 	\end{tabular}
 \end{center}
+\end{table}
 
 
 As can be seen from these results, the time is rather consistent at just below 2 minutes. This of course depends heavily on the hardware used, but surprisingly very little on the orations chosen within the GA. The results are not quite as consistent and have to be handled carefully due to the small sample size. Row 3 (TowPointCrossover, TournamentSelection) seems to deliver the best results, but this is largely due to a single very good path, which can be attributed to "`luck"' in the randomly generated path. If we disregard this single path we get an average of 143, which is almost the same as in the first two rows. The last row (TwoPointCrossover, RouletteWheelSelection) however produces sub-optimal paths rather consistently. It is also noticeable that the difference between the best and worst path is much smaller in the first row when compared to the other three, which is why this setting has been chosen as the default one as it produces an acceptable quality of paths consistently. These results may of course change with a (much) larger, see \ref{sec:further_testing}.
@@ -72,6 +74,7 @@ Two interesting paths are given in fig. \ref{pic:example_good_path} and fig. \re
 The settings in the following table are the same as in the previous ones, but the generation count has been doubled to 100.
 Due to time constraints, all evaluations after this points were done on an i5-M460@2,53 GHz instead of the Q6600 stated above. For comparison, the computation of the above table took an average of around 1:25, the same as in \ref{sec:no_trailer_50}, so about 25 seconds faster. Since, as we will see, the addition of a trailer does not impede the speed algorithm, we can simply make comparisons using \ref{sec:no_trailer_50}.
 
+\begin{table}\caption{No Trailer, Generation Count of 100}
 \begin{center}
 	\begin{tabular}{| l | l | l | p{3cm} | p{3cm}|}
 		\hline
@@ -89,6 +92,7 @@ Due to time constraints, all evaluations after this points were done on an i5-M4
 		\hline
 	\end{tabular}
 \end{center}
+\end{table}
 
 Only the first row (EightBitCrossover, TournamentSelection) shows a significant improvement with the doubled number of generations, the other are very close to their previous values. The third row, again, takes its good average mostly from a single very good path, if we ignore it as an anomaly we get a result of only 137, which is also comparable to its previous average. While the overall quality of paths has not improved by a lot, it is now more obvious than before that the setting chosen in the first row presents the best case scenario for this algorithm. Computation time is a little less than twice that of a 50 generation computation done on the same hardware (see \ref{sec:no_trailer_50}), this is not surprising since computation done on each generation is the same so the time required can be assumed to be constant, thus doubling the generation count should also double the computation time. The slight offset probably comes from the initial generation, which takes longer than any other and is not affected by the increase in the generation count.
 
@@ -97,6 +101,7 @@ Only the first row (EightBitCrossover, TournamentSelection) shows a significant 
 
 The settings in the following table are the same as in the previous ones, except that the vehicle now has one trailer and the generation count has been lowered to 50 again.
 
+\begin{table}\caption{One Trailer, Generation Count of 50}
 \begin{center}
 	\begin{tabular}{| l | l | l | p{3cm} | p{3cm}|}
 		\hline
@@ -114,6 +119,7 @@ The settings in the following table are the same as in the previous ones, except
 		\hline
 	\end{tabular}
 \end{center}
+\end{table}
 
 The first thing noticeable about this table is that the overall quality of paths has clearly decreased when compared to \ref{sec:no_trailer_50}. The addition of a trailer seems to influence the algorithm more than the generation count, however, time does not seem to be significantly affected, which is precisely what we want from a GA: The ability to compute very complex (in our case this means more trailers) problems in acceptable time. Since we changed hardware since the original 50 generation/no trailer run we cannot draw a clear conclusion here, but when comparing \ref{sec:no_trailer_50} and \ref{sec:no_trailer_100} later we will be able do so. It is also notable that the last two rows, which employ the TwoPointCrossover, are now significantly worse than the first 2, which was not that noticeable before. Also, our second row is now better than our first, however, this may also be due to our small sample size. We will see how this changes for a generation count of 100 in the following section.
 
@@ -122,6 +128,7 @@ The first thing noticeable about this table is that the overall quality of paths
 
 The settings in the following table are the same as in the previous ones, but the generation count has been doubled to 100 again. The vehicle still has one trailer.
 
+\begin{table}\caption{One Trailer, Generation Count of 100}
 \begin{center}
 	\begin{tabular}{| l | l | l | p{3cm} | p{3cm}|}
 		\hline
@@ -139,6 +146,7 @@ The settings in the following table are the same as in the previous ones, but th
 		\hline
 	\end{tabular}
 \end{center}
+\end{table}
 
 We can now clearly see that the addition of one trailer had almost no impact on our required computation time, in row 3 the time is up by 5 seconds, in 2 and 4 it is up by 4 seconds and in row 1 it is even down by 1 second. The overall quality of paths has further diminished, so using a generation count of 100 does not seem to be a good idea as the algorithm starves out instead of producing better results. Row 2 still produced the best results, but is also not very consistent, the TwoPointCrossover-based results are still far below the EightBitCrossover ones. We will further compare row 1 and 2 with a larger sample size in the next section.
 

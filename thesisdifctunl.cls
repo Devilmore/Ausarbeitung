@@ -849,6 +849,99 @@ keepaspectratio]{#1}%
 	\fi
 }
 
+%%%%%%%%%%%%%%%%%%%%% maketitle from here
+
+\renewcommand{\maketitle}{
+  \begin{titlepage}
+    
+      \renewcommand{\arraystretch}{.8}
+      \begin{tabular}{c p{2.25cm} c}
+ 	  	  \includegraphics[height=.9cm]{logos/uni-logo-color}
+	      \\
+        \hspace{.71cm}
+        \begin{footnotesize}
+          Campus Koblenz, Fachbereich 4: Informatik
+        \end{footnotesize}
+        \\
+      \end{tabular}\\
+	  \begin{center}
+    \renewcommand{\arraystretch}{1.0} %reset arraystretch to default
+    \vspace*{1.75cm}
+    \begin{huge}
+      \textbf{\@title}\\[1.75cm]
+        Bachelorarbeit\\[.2cm]
+    \end{huge}
+    zur Erlangung des Grades
+      	  eines\\
+      Bachelor of Science\\
+    im Studiengang Informatik\\[.75cm]
+    \begin{large}
+      vorgelegt von\\
+    \end{large}
+    \begin{Large}
+      Andreas Barthen\\[4cm]
+    \end{Large}
+   	\end{center}
+    \begin{tabular}{ll}
+	  Betreuer: & Prof. Dr. Ulrich Furbach, Institut für Informatik, Universität Koblenz-Landau \\[2.5mm]
+      Erstgutachter: & Prof. Dr. Ulrich Furbach, Institut für Informatik, Universität Koblenz-Landau \\[2.5mm]
+  	  Zweitgutachter: & Dipl.-Inform. Christian Schwarz, Institut für Informatik, Universität 
+	  & {} & Koblenz-Landau \\[2cm]
+      \multicolumn{2}{l}{Koblenz, im\ Juli 2013}\\
+    \end{tabular}
+  \end{titlepage}
+  \iftwoside
+    \begin{titlepage}
+      \null\clearpage
+    \end{titlepage}
+  \fi
+  \newcount\authornumber
+  \ifgroup
+    \authornumber=2
+  \else
+    \authornumber=1
+  \fi
+  \begin{titlepage}
+    \begin{flushleft}
+      \loop\ifnum\authornumber>0
+        \begin{Large}
+          Erkl{\"a}rung\\[5mm]
+        \end{Large}
+        Ich versichere, dass ich die vorliegende Arbeit selbst\"andig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe.\\[.75cm]
+        \begin{center}
+        \begin{tabular}{l p{1cm} cc}
+          {} & {} & Ja & Nein\\[.5cm]
+          Mit der Einstellung dieser Arbeit in die Bibliothek& {} & {} & {}\\
+          bin ich einverstanden. & {} & $\XBox$ & $\Box\\[.5cm]
+          Der Ver\"offentlichung dieser Arbeit im Internet& {} & {} & {}\\
+          stimme ich zu.& {} & $\XBox$ & $\Box$\\[.5cm]
+        \end{tabular}\\[2cm]
+        \end{center}
+          Kruft, den 4 Juli, 2013 \hfill Andreas Barthen
+        \advance\authornumber by -1
+        \ifnum\authornumber>0
+          \clearpage
+        \fi
+      \repeat
+    \end{flushleft}
+  \end{titlepage}
+  \iftwoside
+    \ifgroup
+      % everything is just fine
+    \else
+      \begin{titlepage}
+        \null\clearpage
+      \end{titlepage}
+    \fi
+  \fi
+}
+
+
+%%%%%%%%%%%%%%%%%%%%% maketitle to here
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Frontpage

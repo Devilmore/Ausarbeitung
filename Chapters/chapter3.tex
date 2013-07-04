@@ -58,7 +58,7 @@ The mutation operator is a simple function meant to re-introduce certain possibi
 \subsection{Parameters}
 \label{sec:parameters}
 
-Once all the parts of the GA have been decided on there are only a number of parameters left to set. While there are some common practices around, most of these have to be decided by trying them out and comparing results. The most important parameters are population size, number of generations, crossover rate, mutation rate, generation gap and scaling. Population size simply determines how many individuals there are in any generation, too small a number will prevent the GA from covering the search space, too large a number will slow down computation. Population size can be anything from several hundred to several thousand and has to be tested out. Likewise, the number of generations determines how many times the algorithm runs and applies selection/crossover/mutation/evaluation, and has to be tried out. If an optimal solution is usually found after 40 or 50 iterations there is no need to continue further. This number is not necessarily set, it is a common way to determine the run time of the algorithm, but alternative termination conditions can be set instead, for example for one individual to reach a certain fitness. The crossover rate determines the percentage of the new generation acquired by crossover instead of selection and is usually set very high. 0.6, 0.75 and 0.95 are common values \cite{20, 22,24}. Similarly, the mutation rate determines the chances of any given bit to be mutated, this rate is usually very low, $1\permil$, $5\permil$ or $1\%$ are common \cite{20,23,24}. The generation gap determines how many members of the generation are replaced in the next generation, which is usually set to 1.0, meaning the entire population is replaced. Scaling is applied to the fitness rating to prevent super-individuals from sewing the results of the selection early. The exact way of scaling depends on the evaluation function and may not be necessary at all, but a sigma-truncation, which is a truncation of a gaussian distribution meant to control the bias towards highly fit members, is common. \cite{26}
+Once all the parts of the GA have been decided on there are only a number of parameters left to set. While there are some common practices around, most of these have to be decided by trying them out and comparing results. The most important parameters are population size, number of generations, crossover rate, mutation rate, generation gap and scaling. Population size simply determines how many individuals there are in any generation, too small a number will prevent the GA from covering the search space, too large a number will slow down computation. Population size can be anything from several hundred to several thousand and has to be tested out. Likewise, the number of generations determines how many times the algorithm runs and applies selection/crossover/mutation/evaluation, and has to be tried out. If an optimal solution is usually found after 40 or 50 iterations there is no need to continue further. This number is not necessarily set, it is a common way to determine the run time of the algorithm, but alternative termination conditions can be set instead, for example for one individual to reach a certain fitness. The crossover rate determines the percentage of the new generation acquired by crossover instead of selection and is usually set very high. 0.6, 0.75 and 0.95 are common values \cite{20, 22,24}. Similarly, the mutation rate determines the chances of any given bit to be mutated, this rate is usually very low, $1\permil$, $5\permil$ or $1\%$ are common \cite{20,23,24}. The generation gap determines how many members of the generation are replaced in the next generation, which is usually set to 1.0, meaning the entire population is replaced. Scaling is applied to the fitness rating to prevent super-individuals from sewing the results of the selection early. The exact way of scaling depends on the evaluation function and may not be necessary at all, but a sigma-truncation, which is a truncation of a gaussian distribution meant to control the bias towards highly fit members, is common \cite{26}.
 
 \section{About the Vehicle}
 \label{sec:previous_knowledge_vehicle}
@@ -66,10 +66,10 @@ Once all the parts of the GA have been decided on there are only a number of par
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.75\textwidth]{./Chapters/Figures/single-track-model.png}
-\caption{A vehicle in the single track model with identifiers \cite{12} \label{pic:single-track-model}}
+\caption{A vehicle in the single track model with identifiers [12] \label{pic:single-track-model}}
 \end{figure}
 
-Our simulation software uses the control method for stable driving developed by Christian Schwarz to determine the actual path from the planned one in order to evaluate its fitness. To this end we use the same representation of the vehicle, which will be explained in the following section. The actual control software is then briefly described in \ref{sec:previous_knowledge_ezsystems}, for a complete definition and prove of stability see \cite{12}. This section also contains a short overview of nonholonomic systems, of which our vehicle is an example.
+Our simulation software uses the control method for stable driving developed by Christian Schwarz to determine the actual path from the planned one in order to evaluate its fitness. To this end we use the same representation of the vehicle, which will be explained in the following section, for a complete definition and prove of stability see \cite{12}. This section also contains a short overview of nonholonomic systems, of which our vehicle is an example.
 The dimensions and number of trailers of the vehicle can be freely defined in the simulation software and since no connection to an actual model is implemented yet, no further restrictions are given. The control method itself has been tested in simulation as well on a 1:16 general-2-trailer model. In order to describe the vehicle more easily and still have enough detail to achieve a correct representation, the single track vehicle model is used\cite{27}. The vehicle is first split along its flexible coupling, so any axles with rigid couplings are replaced by one virtual axis between them. The steering of the vehicle is considered to be a flexible coupling, so the tractive unit is split into 2 elements, which is why we call it a general-(n-1)-trailer if the model has n elements. Now that the vehicle is a chain of rigid parts, all wheels are replaced by points, meaning they are assumed to touch the ground in exactly one spot, and then all pairs of wheels are replaced by a single wheel in between them. \ref{pic:single-track-model} shows a general-n-trailer in its single-track model with identifiers, which are used as followed:
 
 \begin{itemize}
@@ -118,7 +118,7 @@ Nonholonomic systems are a special class of kinematic systems where the degrees 
 % Refer to this later?
 % In our case however we plan paths (more or less) at random and use the control method for stable driving to obtain a possible path from the generated one and thus make sure all constraints are fulfilled. Consequently we do not have to explicitly consider the pfaffian constraints or bring our configuration in goursat normal form, which is used to solve equations on nonholonomic systems.
 
-\section{About the control method for stable driving}
+section{About the control method for stable driving}
 \label{sec:about_control_method}
 
 The EZauto software consists of many different parts for a variety of purposes, only one of which is implemented in our simulation software however: The control method for stable driving \cite{12}. 
@@ -131,7 +131,7 @@ This task now presents us with several steps: Determining the meeting point, fro
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.75\textwidth]{./Chapters/Figures/vehicle_kinematic.png}
-\caption{General-2-trailer identifiers \cite{12} \label{pic:vehicle_kinematic}}
+\caption{General-2-trailer identifiers [12] \label{pic:vehicle_kinematic}}
 \end{figure}
 
 \subsection{The Meeting Point}
@@ -154,7 +154,7 @@ $\vec{t}:=\vec{i}+c_v \cdot \vec{h} = ( \langle \vec{p} - \vec{g_0}, \vec{h} \la
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.75\textwidth]{./Chapters/Figures/meeting_point_linear.png}
-\caption{Determining the meeting point for a linear path part \cite{12} \label{pic:meeting_point_linear}}
+\caption{Determining the meeting point for a linear path part [12] \label{pic:meeting_point_linear}}
 \end{figure}
 
 If our desired path is a circle, illustrated in \ref{pic:meeting_point_circle}, it is given as:
@@ -192,7 +192,7 @@ $\vec{t} =
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.75\textwidth]{./Chapters/Figures/meeting_point_circle.png}
-\caption{Determining the meeting point for a circular path part \cite{12} \label{pic:meeting_point_circle}}
+\caption{Determining the meeting point for a circular path part [12] \label{pic:meeting_point_circle}}
 \end{figure}
 
 We now have to determine the circle we have to drive to get from our current position $P$ to our desired position $T$ determined in the last step. This circle has to be tangential to the line denoted by our current position $T$ and our current direction $\theta$, since otherwise we would be unable to follow it. Consequentially our center point lies on a line which is orthogonally to $\theta$ and runs through $P$. Also, since our desired meeting point $T$ has to be on the same circle, the line from $T$ to $P$ is a chord of the circle, so our center point lies on a perpendicular bisector of this line. See \ref{pic:correction_circle_radius} for an illustration. The vector $\vec{m_[KK}}$ denoting this point $M_{KK}$ is obtained by:
@@ -232,7 +232,7 @@ $ r_{KK}=
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.75\textwidth]{./Chapters/Figures/correction_circle_radius.png}
-\caption{Determining the radius of the correction circle \cite{12} \label{pic:correction_circle_radius}}
+\caption{Determining the radius of the correction circle [12] \label{pic:correction_circle_radius}}
 \end{figure}
 
 \subsection{Calculating the steering angle}
@@ -264,3 +264,5 @@ This function $f$ is strictly monotonic decreasing in $\left[- \tfrac{\pi}{2},\t
 %\label{sec:previous_knowledge_ezsystems}
 
 % Information about EZauto? Is this relevant for this paper?
+
+

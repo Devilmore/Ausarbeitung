@@ -48,10 +48,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\documentclass[bsc,en,
-oneside,12pt,utf8,a4paper,
-% bibbychapter
-]{thesisdifctunl}
+	%\documentclass[bsc,en,oneside,12pt,utf8,a4paper,]{thesisdifctunl}
+	\documentclass[m,bachelor,binding,oneside,palatino]{thesisdifctunl}
 
 
 
@@ -126,9 +124,12 @@ oneside,12pt,utf8,a4paper,
 % Title of the dissertation/thesis
 % USe "\\" to break the title into two or more lines
 \title{Local Area Navigation for Multi-axle Vehicles using Machine Learning Algorithms}
+\author[m]{Andreas Barthen
+\degreecourse{Informatik}
 
+
+%% old shit
 % Author
-\author[m]{Andreas Barthen} 
 \authordegree{}
 
 % Date
@@ -140,39 +141,7 @@ oneside,12pt,utf8,a4paper,
 % use [f] for female and [m] for male
 \adviser[m]{Christian Schwarz}{Dipl. Informatiker}{\\&Universität Koblenz-Landau}
 \adviser[m]{Ulrich Furbach}{Prof.\ Dr.}{\\&Universität Koblenz-Landau}
-% A trick to force the University to go to the next line :)
-% \adviser[m]{João M. S. Lourenço}{Prof.\ Auxiliar}{\\&Universidade Nova de Lisboa}
 
-% Co-supervisors (maximum of 9)
-% use [f] for female and [m] for male
-% \coadviser[f]{[Nome da co-orientadora 1]}{[Cargo]}{[Instituição]}
-% \coadviser[f]{[Nome da co-orientadora 2]}{[Profª.\ Auxiliar]}{[Universidade Nova de Lisboa]}
-
-% Jury (maximum of 9 elements)
-% Use [p] for president, [a] for referees, [v] or nothing for others
-% President of the jury
-%\jury[p]{[Nome do presidente do júri]}
-% Main referees
-%\jury[a]{[Nome do primeiro arguente]}
-%\jury[a]{[Nome do segundo arguente]}
-% Other members of the jury - include the supervisor in this list
-%\jury[v]{[Nome do primeiro vogal]}
-%\jury[v]{[Nome do segundo vogal]}
-%\jury[v]{[Nome do terceiro vogal]}
-%\jury[v]{[Nome do quarto vogal]}
-% \jury{[Nome do quinto vogal]}
-% \jury{[Nome do sexto vogal]}
-
-%%------------------------------------------------------------
-%% All the names inside braces below sould correspond to a file
-%%     with extension ".tex" and located in the "Chapters" folder
-%%------------------------------------------------------------
-% Dedicatory text. Will only be considered for final documents,
-% i.e., "bsc", "msc" and "phd", otherwise, it will be silently ignored
-% \dedicatoryfile{dedicatory} 
-
-% Acknowledgments text. Will only be considered for final documents,
-% i.e., "bsc", "msc" and "phd", otherwise, it will be silently ignored
 \acknowledgementsfile{acknowledgements}
 
 % Quote
@@ -235,7 +204,8 @@ oneside,12pt,utf8,a4paper,
 \frontmatter
 
 % The first front page
-\frontpage
+%\frontpage
+\maketitle
 
 % Print the copyright page for final versions	
 %\printcopyright
