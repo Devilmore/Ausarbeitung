@@ -64,6 +64,7 @@
 
 % To enable customizble enumerates
 \usepackage{paralist}
+\usepackage{longtable}
 
 \usepackage{amsmath}
 
@@ -83,6 +84,8 @@
 \usepackage{subfigure}
 
 \usepackage{wasysym}
+\usepackage{float}
+\restylefloat{table}
 
 % Pseudo Code
 \usepackage[ruled,vlined]{algorithm2e}
@@ -96,6 +99,7 @@
 \usepackage{ifthen}
 \let\oldcite=\cite
 \renewcommand\cite[1]{\ifthenelse{\equal{#1}{NEEDED}}{[citation~needed]}{\oldcite{#1}}}
+\usepackage[nottoc,numbib]{tocbibind}
 
 % To have text wrapping figures
 % \usepackage{wrapfig}
@@ -237,11 +241,12 @@
 
 %%------------------------------------------------------------
 % Print the bibliography
-%\printbib
+\printbib
 
 %%------------------------------------------------------------
 % Print appendixes, if any!
 \printappendixes 
+
 
 %% -----------------------------------------------------------
 % Bibliography here
@@ -463,8 +468,8 @@
 	"`Autonomous Driving in Goods Transport"'
 	
 \bibitem{38}
-	Cat Minestar System
-	http://www.catminestarsystem.com/capability_sets/command/packages/autonomous
+	Cat Minestar System,\\
+	http://www.catminestarsystem.com/capability\_sets/command/packages/autonomous
 	
 \bibitem{39}
 	J. Hopcroft, J.T. Schwartz, M. Sharir,
