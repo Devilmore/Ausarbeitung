@@ -1,7 +1,11 @@
 \chapter{Algorithm Details}
 \label{cha:algorithm_details}
 
-Since a general overview of genetic algorithms has already been given in \ref{sec:previous_knowledge_ga} this chapter will only cover the choices made for the particular program developed for this paper and justify these choices. Note that some alternative algorithms have been considered and sometimes even implemented, see \ref{cha:evaluation}, but due to the time constraints of this thesis not all possibilities could be covered, so in many cases there may be a better solution possible. Some of these will also be considered, but not implemented, in \ref{cha:conclusion}. 
+Since a general overview of genetic algorithms has already been given in \ref{sec:previous_knowledge_ga} this chapter will only cover the choices made for the particular program developed for this paper and justify these choices. Note that some alternative algorithms have been considered and sometimes even implemented, see \ref{cha:evaluation}, but due to the time constraints of this thesis not all possibilities could be covered, so in many cases there may be a better solution possible. Some of these will also be considered, but not implemented, in \ref{cha:conclusion}. \\
+\\
+The general idea is to represent our paths in such a way that they are easy to use in bit-wise crossover and mutation operations. To this end, all paths are stiched together from simple path-primitves: Lines and curves. Several of these, with different lengths and angles, are then put together to create any path we require. These primitives allow for simple generating, saving and modifying of paths, it also gives us the fixed structure we want for our GA operations.\\
+The initial generation to feed the GA has to be obtained randomly, our chosen path representation is also well suited to this task since it can simply choose random path primitives.\\
+The representation of the vehicle should be as close as possible to the one described in \ref{sec:previous_knowledge_vehicle} since the existing components of the EZSystems framework, which we need for evaluation purposes, are also based on this model. For efficient testing we have to be able to modify, save and load the vehicle as well as its configuration.\\
 
 \section{Genome Representation}
 \label{sec:genome_representation}

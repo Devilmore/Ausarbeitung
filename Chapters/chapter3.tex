@@ -10,6 +10,7 @@ A genetic algorithm (GA) is a search heuristic based on the "`survival of the fi
 The genetic algorithm can be split in two parts, the first part is only executed once at the start of the program, it initializes the first generation and evaluates it. Since no previous generation is available at this point the initial generation has to be obtained from outside the algorithm itself. See \ref{sec:initialization}. \\
 The next steps have to be repeated for every generation, so they should be placed within a loop, which runs until a given termination requiremenet is met, for example until the maximum number of generations is reached or until a specified rating is achieved by at least one member of the current generation. The first step in the loop is the selection, where we take a certain number of members from the old generation for the new one. Next, the generation count is raised since now we compute on the new generation instead of the old one. This new generation is then filled with new members by the crossover function and afterwards mutation is applied. In the last step we evaluate the current generation so that selection can be applied again in the next iteration of the loop.
 Below is a pseudo code for a sample GA.\\
+\\
 \vspace{1cm}
 \begin{algorithm}[H]
 	\SetAlgoLined
@@ -17,8 +18,8 @@ Below is a pseudo code for a sample GA.\\
 	$initialization(P_n)$\;
 	$evaluation(P_n)$\;
 	\While{$genCount$ != $maxGenCount$}{
-		$genCount\leftarrowgencount+1$\;
-		$selection(P_(n-1))$\;
+		$genCount\leftarrow genCount+1$\;
+		$selection(P_{n-1})$\;
 		$crossover(P_n)$\;
 		$mutation(P_n)$\;
 		$evaluation(P_n)$\;
@@ -125,7 +126,7 @@ The EZauto software consists of many different parts for a variety of purposes, 
 % Refer to this later?
 % In our software we use paths that are created at random as an initial generation for our GA and create new paths by crossing/mutating existing genomes. Neither of the those methods of obtaining a path has any concept of the vehicle we plan for and the limitations of the path it could take. From that is is obvious we need some way to obtain a realistic path from our desired path in order get a proper evaluation and end up with a path that is actually possible to drive. To this end we have a simulation class which implements the control method for stable driving which is called for every path before it is evaluated. 
 This control method works similar to how humans would drive: By aiming for a certain point on the path we want to take, drive for a short distance and then adjust our steering and aim for a new point \cite{31,32}. It works both for normal and reverse driving, only the reference point $\theta$ of the vehicle has to be adjusted. It is either the center of the rear axis of the tractive unit for normal driving or the center of the (last) trailer's axis for reverse. \\
-The desired path in our case is already given by either the random function or the GA so now we have to try to follow this path. To this end, we choose a point on the desired path which is a "`certain distance"' away from our current position as our meeting point. Then we have to determine a circle which contains both the current position and the meeting point, this is the path we have to follow. The circle must be chosen such that the direction at the beginning, where our current position is on the circle, is the same as the direction of our $\theta$, since we can't change direction without moving.
+The desired path in our case is already given by either the random function or the GA so now we have to try to follow this path. To this end, we choose a point on the desired path which is a "`certain distance"' away from our current position as our meeting point. Then we have to determine a circle which contains both the current position and the meeting point, this is the path we have to follow. The circle must be chosen such that the direction at the beginning, where our current position is on the circle, is the same as the direction of our $\theta$, since we can't change direction without moving.\\
 This task now presents us with several steps: Determining the meeting point, from that the radius of the correction circle and finally the steering angle. While this method works regardless of driving direction, the calculation of the steering angle changes.
 
 \begin{figure}[h]

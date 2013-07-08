@@ -1,8 +1,7 @@
-\chapter{Idea of the Program}
+\chapter{Approach}
 \label{cha:program_idea}
 
-The goal of the program is to efficiently plan a path with a given start, end and map, using a genetic algorithm. While not planned as a framework for GA development, the GA parameters and functions still have to be easily adjustable to allow for fast optimization. Both the map and the vehicle need also be configurable so the program can quickly be adapted to a given task. The path optimization algorithm by the AG Echtzeitsysteme is used to obtain a usable path from the generated one in order to make sure the result is not just theoretically a good solution but, in fact, a drivable path.
-The basic idea is a simple GUI based program in which a path can be planned and plotted with the simple click of a button, but which also allows modifications to the map, algorithm and vehicle necessary to adapt to any required situation.\\
+The goal of the program is to efficiently plan a path with a given start, end and map, using a genetic algorithm. While not planned as a framework for GA development, the GA parameters and functions still have to be easily adjustable to allow for fast optimization. Both the map and the vehicle need also be configurable so the program can quickly be adapted to a given task. The path optimization algorithm by the AG Echtzeitsysteme is used to obtain a usable path from the generated one in order to make sure the result is not just theoretically a good solution but, in fact, a drivable path.\\
 \\
 The map should be given in a simple format so that new maps can be added easily, for our purpose it is sufficient if a map is two dimensional and consists of two colours, one for available and one for unavailable areas. The map will be used both for collision detection as well as visualization.\\
 \\
@@ -11,3 +10,5 @@ The representation of the vehicle should be as close as possible to the one desc
 All paths are based on two path primitevs: Lines and curves. Several of these, with different lengths and angles, are then put together to create any path we require. These primitives allow for simple generating, saving and modifying of paths, it also gives us a fixed structure for representing paths, which makes the application of a GA easier. This structure is also easily compatible with the given EZSystems implementation.\\
 \\
 The initial generation to feed the GA has to be obtained randomly, our path representation is well suited to this task since it can simply choose random path primitives. Afterwards, the GA as explained in \ref{sec:previous_knowledge_ga} should be applied. Evaluation is done by giving the computed path to the EZSystem software to obtain a driveable path and then rating this path according to its number of collisions and distance to the defined goal.
+
+
